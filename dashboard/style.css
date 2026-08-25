@@ -1,0 +1,151 @@
+﻿* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+.header {
+  background: #1e293b;
+  padding: 24px 40px;
+  border-bottom: 2px solid #334155;
+}
+
+.header h1 {
+  font-size: 24px;
+  color: #38bdf8;
+}
+
+.header p {
+  color: #94a3b8;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.card h2 {
+  font-size: 18px;
+  color: #38bdf8;
+  margin-bottom: 16px;
+}
+
+.card h3 {
+  font-size: 16px;
+  color: #7dd3fc;
+  margin-bottom: 12px;
+}
+
+/* status */
+.status-badge {
+  display: inline-block;
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background: #166534;
+  color: #4ade80;
+  border: 1px solid #4ade80;
+  margin: 10px 0;
+}
+
+.status-badge.down {
+  background: #7f1d1d;
+  color: #f87171;
+  border-color: #f87171;
+}
+
+.last-updated {
+  color: #64748b;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+/* sites layout */
+.sites-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.site-card {
+  flex: 1;
+}
+
+.vpn-arrow {
+  font-size: 22px;
+  color: #38bdf8;
+  white-space: nowrap;
+  font-weight: bold;
+  padding: 0 10px;
+}
+
+/* tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #334155;
+  font-size: 14px;
+}
+
+td:first-child {
+  color: #94a3b8;
+  width: 40%;
+}
+
+.config-table td:first-child {
+  width: 35%;
+}
+
+/* ping test */
+.btn {
+  background: #0369a1;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn:hover {
+  background: #0284c7;
+}
+
+.ping-output {
+  margin-top: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #86efac;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 14px;
+  min-height: 60px;
+  white-space: pre-wrap;
+  display: none;
+}

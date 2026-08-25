@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VPN Status Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="header">
+    <h1>Site-to-Site VPN Dashboard</h1>
+    <p>Monitoring tunnel between Site-A and Site-B</p>
+  </div>
+
+  <div class="container">
+
+    <!-- Tunnel Status Card -->
+    <div class="card status-card">
+      <h2>Tunnel Status</h2>
+      <div class="status-badge" id="tunnelStatus">CONNECTED</div>
+      <p class="last-updated">Last checked: <span id="lastCheck">--</span></p>
+    </div>
+
+    <!-- Site Info -->
+    <div class="sites-row">
+      <div class="card site-card">
+        <h3>Site-A (Headquarters)</h3>
+        <table>
+          <tr><td>Public IP</td><td><strong>203.0.113.1</strong></td></tr>
+          <tr><td>LAN</td><td><strong>192.168.1.0/24</strong></td></tr>
+          <tr><td>Gateway</td><td><strong>192.168.1.1</strong></td></tr>
+          <tr><td>Hosts</td><td><strong>PC-A1, PC-A2, Server-A</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="vpn-arrow">&#8596; VPN &#8596;</div>
+
+      <div class="card site-card">
+        <h3>Site-B (Branch Office)</h3>
+        <table>
+          <tr><td>Public IP</td><td><strong>203.0.113.2</strong></td></tr>
+          <tr><td>LAN</td><td><strong>192.168.2.0/24</strong></td></tr>
+          <tr><td>Gateway</td><td><strong>192.168.2.1</strong></td></tr>
+          <tr><td>Hosts</td><td><strong>PC-B1, PC-B2, Server-B</strong></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- VPN Config Details -->
+    <div class="card">
+      <h2>Tunnel Configuration</h2>
+      <table class="config-table">
+        <tr><td>Protocol</td><td>IPSec (IKEv2)</td></tr>
+        <tr><td>Mode</td><td>Tunnel (ESP)</td></tr>
+        <tr><td>Encryption</td><td>AES-256</td></tr>
+        <tr><td>Integrity</td><td>SHA-256</td></tr>
+        <tr><td>DH Group</td><td>modp2048</td></tr>
+        <tr><td>IKE SA Lifetime</td><td>8 hours</td></tr>
+        <tr><td>IPSec SA Lifetime</td><td>1 hour</td></tr>
+        <tr><td>Auth Method</td><td>Pre-Shared Key (PSK)</td></tr>
+        <tr><td>DPD Action</td><td>Restart</td></tr>
+      </table>
+    </div>
+
+    <!-- Ping Test Results -->
+    <div class="card">
+      <h2>Connectivity Test</h2>
+      <button onclick="runPingTest()" class="btn">Run Ping Test</button>
+      <div id="pingOutput" class="ping-output"></div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
