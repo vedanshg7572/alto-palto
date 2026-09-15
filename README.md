@@ -1,4 +1,16 @@
-﻿# Site-to-Site VPN Configuration
+# Site-to-Site VPN Configuration
+
+## Team Members
+
+| Name | Role |
+|------|------|
+| Vedansh Gupta | Network Configuration & Project Lead |
+| Vishal Goswami | IPSec Tunnel Setup & Testing |
+| Vishal Sharma | Firewall Rules & Security |
+| Vivek Kumar | Simulation & Python Scripts |
+| Yash Sharma | Documentation & Dashboard |
+
+---
 
 ## Project Description
 
