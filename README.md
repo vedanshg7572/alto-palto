@@ -55,25 +55,25 @@ To connect two geographically separate networks (Site-A and Site-B) over the int
 ## Folder Structure
 
     site-to-site-vpn/
-    ├── site-a/
-    │   ├── ipsec.conf          strongSwan config for Site-A
-    │   ├── ipsec.secrets       pre-shared key
-    │   └── firewall_rules.sh   iptables rules
-    ├── site-b/
-    │   ├── ipsec.conf
-    │   ├── ipsec.secrets
-    │   └── firewall_rules.sh
-    ├── simulation/
-    │   ├── vpn_simulator.py    simulates IKE Phase 1 & 2
-    │   ├── packet_tester.py    simulates ping across VPN
-    │   └── network_nodes.py    network config for both sites
-    ├── dashboard/
-    │   ├── index.html          VPN status page (open in browser)
-    │   ├── style.css
-    │   └── app.js
-    └── docs/
-        ├── setup_guide.md
-        └── troubleshooting.md
+    â”œâ”€â”€ site-a/
+    â”‚   â”œâ”€â”€ ipsec.conf          strongSwan config for Site-A
+    â”‚   â”œâ”€â”€ ipsec.secrets       pre-shared key
+    â”‚   â””â”€â”€ firewall_rules.sh   iptables rules
+    â”œâ”€â”€ site-b/
+    â”‚   â”œâ”€â”€ ipsec.conf
+    â”‚   â”œâ”€â”€ ipsec.secrets
+    â”‚   â””â”€â”€ firewall_rules.sh
+    â”œâ”€â”€ simulation/
+    â”‚   â”œâ”€â”€ vpn_simulator.py    simulates IKE Phase 1 & 2
+    â”‚   â”œâ”€â”€ packet_tester.py    simulates ping across VPN
+    â”‚   â””â”€â”€ network_nodes.py    network config for both sites
+    â”œâ”€â”€ dashboard/
+    â”‚   â”œâ”€â”€ index.html          VPN status page (open in browser)
+    â”‚   â”œâ”€â”€ style.css
+    â”‚   â””â”€â”€ app.js
+    â””â”€â”€ docs/
+        â”œâ”€â”€ setup_guide.md
+        â””â”€â”€ troubleshooting.md
 
 ---
 
@@ -103,3 +103,114 @@ See docs/setup_guide.md for full steps.
 - Change the PSK in ipsec.secrets before using this in production
 - Tested on Ubuntu 22.04
 - UDP 500 and 4500 must be open in your firewall/security group
+
+---
+
+## Lab Setup on PNETLab
+
+This project was built and tested on a **PNETLab server** running on a local network. Below are the steps followed to set up and access the lab.
+
+### Step 1 — Access PNETLab Server via SSH
+
+Open terminal/PuTTY and SSH into the PNETLab server:
+
+    ssh root@192.168.247.128
+    Password: (enter root password)
+
+The server runs Ubuntu 18.04.5 LTS. After login you can see system info like CPU, RAM, and IP addresses.
+
+![PNETLab SSH Login](screenshots/01-pnetlab-ssh-login.jpg)
+
+---
+
+### Step 2 — Open PNETLab in Firefox Browser
+
+Open Firefox and go to:
+
+    http://192.168.247.128/legacy/topology
+
+Login with your PNETLab credentials (admin/admin by default).
+
+---
+
+### Step 3 — Create Topology / Add Nodes
+
+In the topology canvas:
+1. Right click on empty area > Add a New Node
+2. Select template — we used:
+   - **Palo Alto** (for India and Dubai firewalls)
+   - **Virtual PC (VPCS)** (for PC1 and PC2)
+   - **Cisco IOL** (for ISP router)
+
+![Add New Node](screenshots/02-pnetlab-add-node.jpg)
+
+---
+
+### Step 4 — Connect Devices and Build Topology
+
+Connect the nodes as per the topology:
+
+    PC1 (eth0) ---- PaloAlto1 (eth1/2) LAN side
+    PaloAlto1 (eth1/1) WAN ---- ISP ---- PaloAlto2 (eth1/1) WAN
+    PaloAlto2 (eth1/2) ---- PC2 (eth0)
+    Both firewalls have eth1/3 connected to management PCs
+
+Final topology looks like this:
+
+![PNETLab Topology](screenshots/03-pnetlab-topology.jpg)
+
+---
+
+### Step 5 — Check System Status
+
+Before starting devices, check server resources:
+- More > System Status in PNETLab menu
+- Make sure enough RAM and CPU is available
+
+Our server had: 4 Cores, 5949MB RAM, 97GB Disk
+
+![System Status](screenshots/04-pnetlab-system-status.png)
+
+---
+
+### Step 6 — Start All Devices
+
+Click **START** button on each device or use the global Start button.
+Wait for all devices to turn green/active.
+
+---
+
+### Step 7 — Configure Palo Alto Firewalls
+
+Once devices are running, access Palo Alto GUI:
+
+    India PA:  https://192.168.10.1   (from mgmt1 PC)
+    Dubai PA:  https://192.168.20.1   (from mgmt2 PC)
+
+Then configure:
+- Interfaces (LAN, WAN, Tunnel)
+- Zones
+- Virtual Router + Static Routes
+- IKE Gateway + Crypto Profile
+- IPSec Tunnel + Proxy IDs
+- Security Policies
+- NAT Exemption
+
+---
+
+### Step 8 — Verify VPN Tunnel
+
+In Palo Alto CLI:
+
+    show vpn ike-sa
+    show vpn ipsec-sa
+
+On PC1:
+
+    ping 192.168.20.10
+
+On PC2:
+
+    ping 192.168.10.10
+
+
